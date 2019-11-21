@@ -1,0 +1,13 @@
+{
+    "general": {
+        "driver_path": "<your_path>/instabot/chromedriver"
+    },
+    "single_bot": {
+        "username": "",
+        "password": ""
+    },
+    "multi_bot": {
+        "account_list": "<path>",
+        "tabs_at_same_time": 10
+    }
+}
