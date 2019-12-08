@@ -1,6 +1,9 @@
 {
     "general": {
-        "driver_path": "<your_path>/instabot/chromedriver"
+        "driver_path": "<your_path>/instabot/chromedriver",
+        "auto_accept": {
+            "timeout": 5
+        }
     },
     "single_bot": {
         "username": "",

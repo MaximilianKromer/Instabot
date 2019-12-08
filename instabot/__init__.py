@@ -19,20 +19,35 @@ class SingleAccountBot():
         self.driver = webdriver.Chrome(executable_path=self.path, chrome_options=self.options)
 
         self.driver.get('https://www.instagram.com/accounts/login/')
-        time.sleep(15)
 
-        time.sleep(2000)
+        time.sleep(3)
         username_field = self.driver.find_element_by_name('username')
         pw_field = self.driver.find_element_by_name('password')
         username_field.send_keys(self.username)
-        time.sleep(15)
         pw_field.send_keys(self.password)
-        time.sleep(15)
         pw_field.submit()
+
+        print("Logged in as " + self.username)
 
 
     def open_profile(self, username=""):
         self.driver.get(self.insta_url + username + "/")
+
+    
+    def open_activity(self):
+        self.driver.get("https://www.instagram.com/accounts/activity/")
+
+    
+    def open_followlist(self):
+        self.driver.get("https://www.instagram.com/accounts/activity/?followRequests=1")
+
+
+    def accept_follows(self):
+        followlist_btns = self.driver.find_elements_by_xpath("//div/div/div/div/button")
+        for btn in followlist_btns:
+            if btn.text == 'Bestätigen':
+                btn.click()
+                print("accepted follow")
 
 
     def follow(self):
