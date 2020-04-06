@@ -65,3 +65,53 @@ class SingleAccountBot():
         logout_btn = self.driver.find_element_by_xpath("//body/div/div/div/div/button[last()-1]")
         logout_btn.click()
         self.driver.quit()
+
+
+class NoAccountBot():
+
+    insta_url = 'https://www.instagram.com/'
+    driver = ''
+    path = ''
+    options = webdriver.ChromeOptions()
+    # options.add_experimental_option('prefs',  { "download.default_directory": "/run/media/maximiliank/Daten/Development/Projekte/instabot/download" } )
+
+    def __init__(self, path=""):
+        self.path = path
+        self.driver = webdriver.Chrome(executable_path=self.path, chrome_options=self.options)
+
+        self.driver.get('https://www.instagram.com/')
+
+        print("NoAccountBot started")
+
+    def open_profile(self, username=""):
+        self.driver.get(self.insta_url + username + "/")
+
+    def check_existenz(self):
+        try:
+            error_headline = self.driver.find_element_by_xpath("//body/div/div/div/div/h2")
+            if error_headline.text == 'Diese Seite ist leider nicht verfügbar.':
+                return False
+        except:
+            return True
+        return True
+
+    def edit_profile(self):
+        self.driver.get(self.insta_url + "accounts/edit/")
+
+    def change_username(self, name):
+        username_field = self.driver.find_element_by_id('pepUsername')
+        username_field.clear()
+        username_field.send_keys(name)
+        submit_btn = self.driver.find_element_by_xpath("//body/div/section/main/div/article/form/div/div/div/button[1]")
+        submit_btn.click()
+        time.sleep(1)
+        try:
+            error_popup = self.driver.find_element_by_xpath("//body/div/div/div/button")
+            if error_popup.text == 'Nochmal versuchen':
+                return False
+        except:
+            return True
+        return True
+
+    def close(self):
+        self.driver.quit()
