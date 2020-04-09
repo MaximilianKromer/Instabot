@@ -33,17 +33,28 @@ names = open("available.txt", "r")
 free_names = open("free_names.txt", "a")
 
 for name in names:
-    sleep(1)
-    if bot.change_username(name):
+    time.sleep(2)
+    changed = bot.change_username(name)
+    if  changed == 1:
         print("[ ✓ ] " + name)
         free_names.write(name)
-    else:
+    elif changed == 0:
         print("[ ✘ ] " + name)
+    else:
+        time.sleep(30)
+        changed = bot.change_username(name)
+        if  changed == 1:
+            print("[ ✓ ] " + name)
+            free_names.write(name)
+        elif changed == 0:
+            print("[ ✘ ] " + name)
+        else:
+            print("[ ? ] " + name)
 
 names.close()
 free_names.close()
 
-time.sleep(120)
-
+time.sleep(2)
+print("Abgeschlossen")
 
 bot.close()

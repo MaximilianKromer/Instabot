@@ -102,9 +102,22 @@ class NoAccountBot():
         username_field = self.driver.find_element_by_id('pepUsername')
         username_field.clear()
         username_field.send_keys(name)
+        time.sleep(1)
         submit_btn = self.driver.find_element_by_xpath("//body/div/section/main/div/article/form/div/div/div/button[1]")
         submit_btn.click()
-        time.sleep(1)
+        time.sleep(2)
+        status = self.driver.find_element_by_xpath("//body/div/div/div/div/p")
+        print(status.text)
+        # Username not available
+        if status.text == 'Dieser Benutzername ist nicht verfügbar. Bitte probiere einen anderen aus.':
+            return 0
+        # Username changed
+        if status.text == 'Profil gespeichert.':
+            return 1
+        # Request rejected
+        if status.text == 'Beim Speichern deines Profils ist ein Fehler aufgetreten.':
+            return 2
+
         try:
             error_popup = self.driver.find_element_by_xpath("//body/div/div/div/button")
             if error_popup.text == 'Nochmal versuchen':
