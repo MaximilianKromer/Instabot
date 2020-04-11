@@ -30,6 +30,12 @@ class SingleAccountBot():
         print("Logged in as " + self.username)
 
 
+    def get_followers(self):
+        self.open_ownprofile()
+        follower_number = self.driver.find_element_by_xpath("//body/div/section/main/div/header/section/ul/li/a/span")
+        return int(follower_number.text)
+
+
     def open_profile(self, username=""):
         self.driver.get(self.insta_url + username + "/")
 
@@ -48,6 +54,15 @@ class SingleAccountBot():
             if btn.text == 'Bestätigen':
                 btn.click()
                 print("accepted follow")
+
+
+    def accept_one_follow(self):
+        followlist_btns = self.driver.find_elements_by_xpath("//div/div/div/div/button")
+        for btn in followlist_btns:
+            if btn.text == 'Bestätigen':
+                btn.click()
+                print("accepted follow")
+                return True
 
 
     def follow(self):

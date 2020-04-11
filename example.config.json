@@ -2,7 +2,8 @@
     "general": {
         "driver_path": "<your_path>/instabot/chromedriver",
         "auto_accept": {
-            "timeout": 5
+            "timeout": 10,
+            "limit": 999
         }
     },
     "single_bot": {
