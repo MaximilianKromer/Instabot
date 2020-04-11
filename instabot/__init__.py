@@ -21,19 +21,22 @@ class SingleAccountBot():
         self.driver.get('https://www.instagram.com/accounts/login/')
 
         time.sleep(3)
-        username_field = self.driver.find_element_by_name('username')
-        pw_field = self.driver.find_element_by_name('password')
-        username_field.send_keys(self.username)
-        pw_field.send_keys(self.password)
-        pw_field.submit()
-
-        print("Logged in as " + self.username)
+        if username:
+            username_field = self.driver.find_element_by_name('username')
+            pw_field = self.driver.find_element_by_name('password')
+            username_field.send_keys(self.username)
+            pw_field.send_keys(self.password)
+            pw_field.submit()
+            print("Logged in as " + self.username)
+        else:
+            print("Please log in")
+            ready = input("Press return when you are logged in: ")
 
 
     def get_followers(self):
         self.open_ownprofile()
         follower_number = self.driver.find_element_by_xpath("//body/div/section/main/div/header/section/ul/li/a/span")
-        return int(follower_number.text)
+        return int(follower_number.text.replace(".", ""))
 
 
     def open_profile(self, username=""):
