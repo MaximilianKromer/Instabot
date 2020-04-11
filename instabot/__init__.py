@@ -21,10 +21,11 @@ class SingleAccountBot():
         self.driver.get('https://www.instagram.com/accounts/login/')
 
         time.sleep(3)
-        if username:
-            username_field = self.driver.find_element_by_name('username')
+        username_field = self.driver.find_element_by_name('username')
+        username_field.send_keys(self.username)
+        
+        if password:
             pw_field = self.driver.find_element_by_name('password')
-            username_field.send_keys(self.username)
             pw_field.send_keys(self.password)
             pw_field.submit()
             print("Logged in as " + self.username)
